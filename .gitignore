@@ -1,0 +1,11 @@
+# Miljövariabler (Innehåller dina lösenord!)
+.env
+
+# Beroenden (Ska inte skickas med, läraren kör npm install)
+node_modules/
+
+# Databasfiler (Instruktionerna säger att dessa inte ska skickas med)
+*.sql
+
+# Systemfiler
+.DS_Store
