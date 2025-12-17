@@ -3,9 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
   <title>Document</title>
 </head>
 <body>
-  
+ <nav>
+    <a href="/">Hem</a>
+    <a href="/cart">Kundvagn</a>
+    <a href="/register">Registrera</a>
+    <a href="/login">Logga in</a>
+    <a href="/logout">Logga ut</a>
+</nav>
+
+<div class="container">
+    <h1>Sök efter böcker</h1>
+
+    <div class="search-section">
+        <div class="search-group">
+            <input type="text" id="authorInput" placeholder="Sök på författare (t.ex. Ali)...">
+            <button onclick="currentPage=1; fetchBooks()">Sök Författare</button>
+        </div>
+        <div class="search-group">
+            <input type="text" id="titleInput" placeholder="Sök på titel (t.ex. Sport)...">
+            <button onclick="currentPage=1; fetchBooks()">Sök Titel</button>
+        </div>
+    </div>
+
+    <div id="bookResults">
+        </div>
+
+    <div class="pagination">
+        <button onclick="changePage(-1)">Föregående</button>
+        <span>Sida: <strong id="pageDisplay">1</strong></span>
+        <button onclick="changePage(1)">Nästa</button>
+    </div>
+</div>
+
+<script>
+    let currentPage = 1;
+
+    async function fetchBooks() {
+        const author = document.getElementById('authorInput').value;
+        const title = document.getElementById('titleInput').value;
+        
+        const url = `/api/books?author=${author}&title=${title}&page=${currentPage}`;
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            const resultsDiv = document.getElementById('bookResults');
+            
+            resultsDiv.innerHTML = '';
+
+            if (data.books.length === 0) {
+                resultsDiv.innerHTML = '<p>Inga böcker hittades.</p>';
+                return;
+            }
+
+            data.books.forEach(book => {
+                resultsDiv.innerHTML += `
+                    <div class="book-card">
+                        <h3>${book.title}</h3>
+                        <p><strong>Författare:</strong> ${book.author}</p>
+                        <p><strong>Ämne:</strong> ${book.subject}</p>
+                        <p><strong>Pris:</strong> $${book.price}</p>
+                        <div class="cart-controls">
+                            Antal: <input type="number" id="qty-${book.isbn}" value="1" min="1">
+                            <button onclick="addToCart('${book.isbn}')">Lägg i kundvagn</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('pageDisplay').innerText = currentPage;
+        } catch (err) {
+            console.error('Fel vid hämtning:', err);
+        }
+    }
+
+    async function addToCart(isbn) {
+        const qty = document.getElementById(`qty-${isbn}`).value;
+        
+        const response = await fetch('/api/cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ isbn, qty: parseInt(qty) })
+        });
+
+        if (response.ok) {
+            alert('Boken har lagts till i kundvagnen!');
+        } else {
+            alert('Du måste logga in för att handla.');
+        }
+    }
+
+    function changePage(step) {
+        currentPage += step;
+        if (currentPage < 1) currentPage = 1;
+        fetchBooks();
+    }
+
+    // Ladda några böcker direkt när sidan startar
+    fetchBooks();
+</script>
 </body>
 </html>
