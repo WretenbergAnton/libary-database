@@ -52,11 +52,48 @@ async function addToCart(isbn) {
     }
 }
 
+// Lägg till detta i main.js
+async function checkLoginStatus() {
+    try {
+        const response = await fetch('/api/status');
+        const status = await response.json();
+
+        const registerLink = document.getElementById('nav-register');
+        const loginLink = document.getElementById('nav-login');
+        const logoutLink = document.getElementById('nav-logout');
+        const welcomeMsg = document.getElementById('welcome-message');
+
+        if (status.loggedIn) {
+            // Om inloggad: Dölj register/logga in, visa logga ut
+            if(registerLink) registerLink.style.display = 'none';
+            if(loginLink) loginLink.style.display = 'none';
+            if(logoutLink) logoutLink.style.display = 'inline';
+            
+            if(welcomeMsg) {
+                welcomeMsg.innerText = `Hej, ${status.userName}!`;
+                welcomeMsg.style.display = 'inline';
+                welcomeMsg.style.color = 'white'
+            }
+        } else {
+            // Om utloggad: Visa register/logga in, dölj logga ut
+            if(registerLink) registerLink.style.display = 'inline';
+            if(loginLink) loginLink.style.display = 'inline';
+            if(logoutLink) logoutLink.style.display = 'none';
+            if(welcomeMsg) welcomeMsg.style.display = 'none';
+        }
+    } catch (err) {
+        console.error('Kunde inte kontrollera status:', err);
+    }
+}
+
+// Kör statuskollen när sidan laddas
+
 function changePage(step) {
     currentPage += step;
     if (currentPage < 1) currentPage = 1;
     fetchBooks();
 }
 
+checkLoginStatus();
 // Starta hämtning direkt
 fetchBooks();

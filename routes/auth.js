@@ -11,6 +11,15 @@ router.post('/api/register', async (req, res) => {
     } catch (err) { res.status(500).send(err.message); }
 });
 
+// Lägg till i auth.js
+router.get('/api/status', (req, res) => {
+    if (req.session.userId) {
+        res.json({ loggedIn: true, userName: req.session.userName });
+    } else {
+        res.json({ loggedIn: false });
+    }
+});
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const [rows] = await pool.query('SELECT * FROM members WHERE email = ? AND password = ?', [email, password]);
