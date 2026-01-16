@@ -21,12 +21,12 @@ async function loadCart() {
                 <tr>
                     <td>${item.isbn}</td>
                     <td>${item.title}</td>
-                    <td>$${item.price}</td>
+                    <td>${item.price}kr</td>
                     <td>${item.qty}</td>
-                    <td>$${itemTotal.toFixed(2)}</td>
+                    <td>${itemTotal.toFixed(2)}kr</td>
                 </tr>`;
         });
-        document.getElementById('grandTotal').innerText = `Totalt: $${total.toFixed(2)}`;
+        document.getElementById('grandTotal').innerText = `Totalt: ${total.toFixed(2)}kr`;
     } catch (err) {
         console.error(err);
     }
