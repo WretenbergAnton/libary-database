@@ -8,14 +8,13 @@
 </head>
 <body>
     <nav>
-        <a href="/">Hem</a> | 
-        <a href="/cart">Kundvagn</a> | 
+        <a href="/">Hem</a>
         <a href="/logout">Logga ut</a>
     </nav>
 
     <div class="container">
         <h1>Din Kundvagn</h1>
-        <table id="cartTable">
+        <table>
             <thead>
                 <tr>
                     <th>ISBN</th>
@@ -25,13 +24,14 @@
                     <th>Totalt</th>
                 </tr>
             </thead>
-            <tbody id="cartBody">
-                </tbody>
+            <tbody id="cartBody"></tbody>
         </table>
-        <h3 id="grandTotal">Totalt: 0.00kr</h3>
-        <button onclick="checkout()">Slutför köp (Checkout)</button>
+        
+        <div id="grandTotal">Totalt: 0kr</div>
+        <div style="text-align: right; margin-top: 2rem;">
+            <button onclick="checkout()" class="btn-full" style="max-width: 200px;">Slutför köp</button>
+        </div>
     </div>
-
     <script src="/js/cart.js"></script>
 </body>
 </html>

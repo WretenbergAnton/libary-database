@@ -11,7 +11,6 @@ router.post('/api/register', async (req, res) => {
     } catch (err) { res.status(500).send(err.message); }
 });
 
-// Lägg till i auth.js
 router.get('/api/status', (req, res) => {
     if (req.session.userId) {
         res.json({ loggedIn: true, userName: req.session.userName });

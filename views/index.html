@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/style.css">
-  <title>Document</title>
-</head>
-<body>
-<nav id="mainNav">
-    <a href="/">Hem</a>
-    <a href="/cart">Kundvagn</a>
-    <a href="/register" id="nav-register">Registrera</a>
-    <a href="/login" id="nav-login">Logga in</a>
-    <a href="/logout" id="nav-logout">Logga ut</a>
-    <span id="welcome-message" style="display:none; margin-left:10px;"></span>
-</nav>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Bokhandel</title>
+  </head>
+  <body>
+    <nav id="mainNav">
+      <a href="/">Hem</a>
+      <a href="/cart">Kundvagn</a>
+      <a href="/register" id="nav-register">Registrera</a>
+      <a href="/login" id="nav-login">Logga in</a>
+      <a href="/logout" id="nav-logout" style="display: none">Logga ut</a>
+      <span id="welcome-message"></span>
+    </nav>
 
-<div class="container">
-    <h1>Sök efter böcker</h1>
+    <div class="container">
+      <header>
+        <h1>Sök efter böcker</h1>
+      </header>
 
-    <div class="search-section">
-        <div class="search-group">
-            <input type="text" id="authorInput" placeholder="Sök på författare (t.ex. Ali)...">
-            <button onclick="currentPage=1; fetchBooks()">Sök Författare</button>
+      <section class="card-box">
+        <div class="form-row">
+          <input type="text" id="authorInput" placeholder="Sök författare..." />
+          <button onclick="currentPage=1; fetchBooks()">Sök</button>
         </div>
-        <div class="search-group">
-            <input type="text" id="titleInput" placeholder="Sök på titel (t.ex. Sport)...">
-            <button onclick="currentPage=1; fetchBooks()">Sök Titel</button>
+        <div class="form-row">
+          <input type="text" id="titleInput" placeholder="Sök titel..." />
+          <button onclick="currentPage=1; fetchBooks()">Sök</button>
         </div>
-    </div>
+      </section>
 
-    <div id="bookResults">
-        </div>
-
-    <div class="pagination">
-        <button onclick="changePage(-1)">Föregående</button>
-        <span>Sida: <strong id="pageDisplay">1</strong></span>
-        <button onclick="changePage(1)">Nästa</button>
-    </div>
+      <div id="bookResults"></div>
+<div class="pagination">
+    <button onclick="changePage(-1)">Föregående</button>
+    <span>Sida <span id="pageDisplay">1</span></span>
+    <button onclick="changePage(1)">Nästa</button>
 </div>
 
-<script src="/js/main.js"></script>
-</body>
+    <script src="/js/main.js"></script>
+  </body>
 </html>
