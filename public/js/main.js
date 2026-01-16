@@ -22,8 +22,8 @@ async function fetchBooks() {
                 <div class="book-card">
                     <h3>${book.title}</h3>
                     <p><strong>Författare:</strong> ${book.author}</p>
-                    <p><strong>Ämne:</strong> ${book.subject}</p>
-                    <p><strong>Pris:</strong> $${book.price}</p>
+                    <p><strong>Ämne:</strong> ${book.genre}</p>
+                    <p><strong>Pris:</strong> ${book.price}kr</p>
                     <div class="cart-controls">
                         Antal: <input type="number" id="qty-${book.isbn}" value="1" min="1">
                         <button onclick="addToCart('${book.isbn}')">Lägg i kundvagn</button>
